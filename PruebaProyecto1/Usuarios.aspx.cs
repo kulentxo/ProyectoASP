@@ -42,21 +42,26 @@ namespace PruebaProyecto1
         }
         protected void btnIniciar_Click(object sender, EventArgs e)
         {
+            String resul;
             string strConnectionString = ConfigurationManager.ConnectionStrings["DAM_Compartido_DEVConnectionString"].ToString();
             using (SqlConnection sqlConn = new SqlConnection(strConnectionString))
             {
                 SqlCommand comando = new SqlCommand("Minecraft.IniciarSesion", sqlConn);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@usuario", txtUsuario.Text);
-                comando.Parameters.AddWithValue("@pass", txtPass.Text);
-
-                SqlParameter paramRet = new SqlParameter("@ReturnValue", System.Data.SqlDbType.Int);
-                paramRet.Direction = ParameterDirection.ReturnValue;
-                comando.Parameters.Add(paramRet);
+                comando.Parameters.AddWithValue("@usuario", (txtUsuario.Text).ToString());
+                comando.Parameters.AddWithValue("@pass", (txtPass.Text).ToString());
+                comando.Parameters.Add("@resultado", SqlDbType.TinyInt).Direction = ParameterDirection.Output;
                 sqlConn.Open();
                 comando.ExecuteNonQuery();
-                Response.Write("return value " + comando.Parameters["@ReturnValue"].Value);
+                resul = comando.Parameters["@resultado"].Value.ToString();
+                Response.Write("Return value"+resul);
                 sqlConn.Close();
+                /*SqlParameter paramRet = new SqlParameter("@resultado", System.Data.SqlDbType.Int);
+                comando.Parameters.Add("@resultado", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.Output;
+                
+                
+                Response.Write("return value " + comando.Parameters["@resultado"].Value);
+                */
             }
         }
     }
