@@ -24,7 +24,7 @@
             <asp:Button ID="btnRegistrar" runat="server" Text="Registrar" OnClick="btnRegistrar_Click"/>
         </div>
         <div>
-             <asp:label runat="server" text="Usuario:"></asp:label><br />
+            <asp:label runat="server" text="Usuario:"></asp:label><br />
             <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox><br />
             <asp:label runat="server" text="Contraseña:"></asp:label><br />
             <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox><br />
